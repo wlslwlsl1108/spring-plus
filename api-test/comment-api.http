@@ -1,0 +1,12 @@
+### 댓글 생성
+POST http://localhost:8080/todos/{{todoId}}/comments
+Content-Type: application/json
+
+{
+  "contents": ""
+}
+
+
+### 댓글 조회
+GET http://localhost:8080/todos/{{todoId}}/comments
+Accept: application/json
