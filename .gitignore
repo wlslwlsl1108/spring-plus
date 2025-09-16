@@ -38,3 +38,6 @@ out/
 
 ### properties ###
 *.properties
+
+### api-test (로컬 테스트 폴더) ###
+/api-test/
