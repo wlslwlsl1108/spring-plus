@@ -17,6 +17,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -52,17 +54,31 @@ public class TodoService {
 
     // todo 조회
     // [1-3] weather 검색 기능 추가 (if 문 추가)
+    // [1-3] 수정일 기준 기간 검색 기능 추가 (else if 추가)
     @Transactional(readOnly = true)
-    public Page<TodoResponse> getTodos(String weather, int page, int size) {
+    public Page<TodoResponse> getTodos(
+            String weather,
+            LocalDateTime startDate,
+            LocalDateTime endDate,
+            int page,
+            int size
+    ) {
         Pageable pageable = PageRequest.of(page - 1, size);
+
         Page<Todo> todos;
 
+        // URL 쿼리 파라미터 검증 //
+        // 1. URL 에서 weather 검색 시
         if (weather != null && !weather.isEmpty()) {
             todos = todoRepository.findByWeather(weather, pageable);
+        // 2. URL 에서 기간 검색 시 (startDate ~ endDate)
+        } else if (startDate != null && endDate != null) {
+            todos = todoRepository.findByModifiedAt(startDate, endDate, pageable);
+        // 3. 전체 조회
+        //    즉, 날씨 조건도 기간 조건도 작성하지 않았을 경우!
         } else {
             todos = todoRepository.findAllByOrderByModifiedAtDesc(pageable);
         }
-
 
         return todos.map(todo -> new TodoResponse(
                 todo.getId(),
