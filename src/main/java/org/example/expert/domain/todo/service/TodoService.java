@@ -20,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 @Transactional
-// 1-1. " readonly = true " 가 전체 메서드에 적용되면 안됨 (무분별 사용 금지)
+// [1-1] " readonly = true " 가 전체 메서드에 적용되면 안됨 (무분별 사용 금지)
 // -> 읽기 전용에만 사용!
 public class TodoService {
 
@@ -51,11 +51,18 @@ public class TodoService {
     }
 
     // todo 조회
+    // [1-3] weather 검색 기능 추가 (if 문 추가)
     @Transactional(readOnly = true)
-    public Page<TodoResponse> getTodos(int page, int size) {
+    public Page<TodoResponse> getTodos(String weather, int page, int size) {
         Pageable pageable = PageRequest.of(page - 1, size);
+        Page<Todo> todos;
 
-        Page<Todo> todos = todoRepository.findAllByOrderByModifiedAtDesc(pageable);
+        if (weather != null && !weather.isEmpty()) {
+            todos = todoRepository.findByWeather(weather, pageable);
+        } else {
+            todos = todoRepository.findAllByOrderByModifiedAtDesc(pageable);
+        }
+
 
         return todos.map(todo -> new TodoResponse(
                 todo.getId(),
