@@ -30,7 +30,7 @@ public class Todo extends Timestamped {
     @OneToMany(mappedBy = "todo", cascade = CascadeType.REMOVE)
     private List<Comment> comments = new ArrayList<>();
 
-    // [2-1] JPA Cascade
+    // [2-6] JPA Cascade
     // cascade = CascadeType.PERSIST -> todo 생성 시 유저는 담당자로 자동 등록
     // DB를 보면 확인 가능! (todo 생성 시, managers 테이블이 자동으로 채워짐)
     @OneToMany(mappedBy = "todo", cascade = CascadeType.PERSIST)
