@@ -58,20 +58,32 @@ class TodoControllerTest {
                 .andExpect(jsonPath("$.title").value(title));
     }
 
+    // [1-4] 컨트롤러 테스트의 이해 완료
+    // 현재 400에러가 발생하는데, 기대 조건에 200 OK 를 주고있음
+    // 에러 발생과 동일하게 변경
     @Test
     void todo_단건_조회_시_todo가_존재하지_않아_예외가_발생한다() throws Exception {
         // given
+        // 테스트 시나리오 준비 : todoId 임의로 준비
         long todoId = 1L;
 
         // when
+        // InvalidRequestException 예외 던짐 -> 실제 400 에러 발생
         when(todoService.getTodo(todoId))
                 .thenThrow(new InvalidRequestException("Todo not found"));
 
         // then
+        // 문제) 기대 조건을 OK(200) 으로 주었으므로 테스트가 정상작동하지 않음 (기대 조건 != 실제 발생 에러)
+        // 해결) 실제 발생하는 에러와 동일하게 기대 조건은 BAD_REQUEST(400)로 변경해줌
+        // /todos/{todoId} 경로로 GET 요청 보냄 (시뮬레이션)  -> 기대 조건!
         mockMvc.perform(get("/todos/{todoId}", todoId))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.status").value(HttpStatus.OK.name()))
-                .andExpect(jsonPath("$.code").value(HttpStatus.OK.value()))
+                // 응답 HTTP 상태코드가 400 Bad Request 이어야 함 (검증)
+                .andExpect(status().isBadRequest())
+                // "status" : Bad Request (검증)
+                .andExpect(jsonPath("$.status").value(HttpStatus.BAD_REQUEST.name()))
+                // "code" : 400 (검증)
+                .andExpect(jsonPath("$.code").value(HttpStatus.BAD_REQUEST.value()))
+                // "message" : "Todo not found" (검증)
                 .andExpect(jsonPath("$.message").value("Todo not found"));
     }
 }
