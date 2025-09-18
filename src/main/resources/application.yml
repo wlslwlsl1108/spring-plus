@@ -5,7 +5,7 @@ spring:
     password: ${PASSWORD}
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update #create : 매번 테이블 새로 생성
     properties:
       hibernate:
         show_sql: true
