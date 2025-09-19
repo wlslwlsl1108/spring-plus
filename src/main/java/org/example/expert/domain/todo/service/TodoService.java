@@ -8,6 +8,7 @@ import org.example.expert.domain.todo.dto.request.TodoSaveRequest;
 import org.example.expert.domain.todo.dto.response.TodoResponse;
 import org.example.expert.domain.todo.dto.response.TodoSaveResponse;
 import org.example.expert.domain.todo.entity.Todo;
+import org.example.expert.domain.todo.repository.GetTodoQueryDSLRepository;
 import org.example.expert.domain.todo.repository.TodoRepository;
 import org.example.expert.domain.user.dto.response.UserResponse;
 import org.example.expert.domain.user.entity.User;
@@ -28,6 +29,8 @@ public class TodoService {
 
     private final TodoRepository todoRepository;
     private final WeatherClient weatherClient;
+    // [2-8] QueryDSL 적용 완료 -> QueryDSL 레포지토리 의존성 주입
+    private final GetTodoQueryDSLRepository getTodoQueryDSLRepository;
 
     // todo 생성
     public TodoSaveResponse saveTodo(AuthUser authUser, TodoSaveRequest todoSaveRequest) {
@@ -91,10 +94,13 @@ public class TodoService {
         ));
     }
 
+    // [2-8] QueryDSL 적용 완료
+    // 기존 TodoRepository(JPQL)가 아닌 getTodoQueryDSLRepository(QueryDSL) 사용
     // 특정 todo 조회
     @Transactional(readOnly = true)
     public TodoResponse getTodo(long todoId) {
-        Todo todo = todoRepository.findByIdWithUser(todoId)
+
+        Todo todo = getTodoQueryDSLRepository.findByIdWithUser(todoId)
                 .orElseThrow(() -> new InvalidRequestException("Todo not found"));
 
         User user = todo.getUser();
