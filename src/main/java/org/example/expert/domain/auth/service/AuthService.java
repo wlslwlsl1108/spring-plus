@@ -34,7 +34,9 @@ public class AuthService {
 
         String encodedPassword = passwordEncoder.encode(signupRequest.getPassword());
 
-        UserRole userRole = UserRole.of(signupRequest.getUserRole());
+        // 회원가입 시 무조건 USER 로 고정
+        // ADMIN 으로 회원가입 불가 (ADMIN은 관리자가 부여)
+        UserRole userRole = UserRole.ROLE_USER;
 
         User newUser = new User(
                 signupRequest.getEmail(),
