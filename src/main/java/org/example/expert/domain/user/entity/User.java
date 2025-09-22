@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import org.example.expert.domain.common.dto.AuthUser;
 import org.example.expert.domain.common.entity.Timestamped;
 import org.example.expert.domain.user.enums.UserRole;
+// [2-9] Spring Security 연동
+import org.springframework.security.core.GrantedAuthority;
 
 @Getter
 @Entity
@@ -36,8 +38,15 @@ public class User extends Timestamped {
         this.userRole = userRole;
     }
 
+    // [2-9] AuthUser 가 authorities 기반 구조로 바뀌었기 때문에
+    // GrantedAuthority → String → UserRole 변환 과정 거침
     public static User fromAuthUser(AuthUser authUser) {
-        return new User(authUser.getId(), authUser.getEmail(), authUser.getUserRole());
+        UserRole userRole = authUser.getAuthorities().stream()
+                .findFirst()
+                .map(GrantedAuthority::getAuthority)
+                .map(UserRole::of)
+                .orElse(UserRole.ROLE_USER);
+        return new User(authUser.getId(), authUser.getEmail(), userRole);
     }
 
     public void changePassword(String password) {
