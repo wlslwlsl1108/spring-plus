@@ -6,11 +6,14 @@ import org.example.expert.domain.user.dto.request.UserRoleChangeRequest;
 import org.example.expert.domain.user.entity.User;
 import org.example.expert.domain.user.enums.UserRole;
 import org.example.expert.domain.user.repository.UserRepository;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+// 관리자만 유저 권한 수정 가능!
+@PreAuthorize("hasRole('ROLE_ADMIN')")
 public class UserAdminService {
 
     private final UserRepository userRepository;
