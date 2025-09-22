@@ -1,6 +1,6 @@
 package org.example.expert.config.security;
 
-import org.example.expert.domain.auth.dto.AuthUser;
+import org.example.expert.domain.common.dto.AuthUser;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 
 // Spring Security -> 인증 객체는 모두 Authentication 인터페시으 구현 필요!
