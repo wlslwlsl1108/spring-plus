@@ -1,8 +1,9 @@
 package org.example.expert.domain.auth.service;
 
 import lombok.RequiredArgsConstructor;
-import org.example.expert.config.JwtUtil;
-import org.example.expert.config.PasswordEncoder;
+import org.example.expert.config.security.JwtUtil;
+// [2-9] Spring Security 제공 클래스로 변경
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.example.expert.domain.auth.dto.request.SigninRequest;
 import org.example.expert.domain.auth.dto.request.SignupRequest;
 import org.example.expert.domain.auth.dto.response.SigninResponse;
