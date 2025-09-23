@@ -205,12 +205,12 @@ Authorization: Bearer {{bearerToken}}
 
 ## 참고
 - 과제에 대한 개념 및 변경 사항은 아래 블로그 참고해주시면 됩니다.
-- [Level 1.1](첨부 예정)
-- [Level 1.2](첨부 예정)
-- [Level 1.3](첨부 예정)
-- [Level 1.4](첨부 예정)
-- [Level 1.5](첨부 예정)
-- [Level 2.6](첨부 예정)
-- [Level 2.7](첨부 예정)
-- [Level 2.8](첨부 예정)
-- [Level 2.9](첨부 예정)
+- [Level 1.1](https://wlsl1108.tistory.com/156)
+- [Level 1.2](https://wlsl1108.tistory.com/157)
+- [Level 1.3](https://wlsl1108.tistory.com/158)
+- [Level 1.4](https://wlsl1108.tistory.com/159)
+- [Level 1.5](https://wlsl1108.tistory.com/160)
+- [Level 2.6](https://wlsl1108.tistory.com/161)
+- [Level 2.7](https://wlsl1108.tistory.com/162)
+- [Level 2.8](https://wlsl1108.tistory.com/163)
+- [Level 2.9](https://wlsl1108.tistory.com/164)
