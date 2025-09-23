@@ -16,6 +16,7 @@ import java.security.Key;
 import java.util.Base64;
 import java.util.Date;
 
+// 클래스 내부에서 사용할 로거 자동생성 + 로그 카테고리명(JwtUtil) 지정
 @Slf4j(topic = "JwtUtil")
 // 스프링 빈으로 등록 -> 어디서든 @Autowired 또는 생성자 주입으로 사용 가능
 @Component

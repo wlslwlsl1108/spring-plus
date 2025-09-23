@@ -15,7 +15,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDateTime;
@@ -42,7 +41,9 @@ class TodoControllerTest {
     private JwtUtil jwtUtil;
 
     @Test
-    //@WithMockUser
+    // 참고) @WithMockUser : Spring Security 테스트용 어노테이션
+    // -> 가짜 사용자(mock user) 만들어서 테스트 환경에서 인증된 사용자처럼 동작하게 해줌
+    // -> @WebMvcTest, @SpringBootTest 같은 통합 테스트에서 컨트롤러 인증/인가 로직 검증 시 사용
     void todo_단건_조회에_성공한다() throws Exception {
         // given
         long todoId = 1L;

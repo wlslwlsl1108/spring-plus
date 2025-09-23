@@ -3,7 +3,7 @@ package org.example.expert.config.security;
 import org.example.expert.domain.common.dto.AuthUser;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 
-// Spring Security -> 인증 객체는 모두 Authentication 인터페시으 구현 필요!
+// Spring Security -> 인증 객체는 모두 Authentication 인터페이스 구현 필요!
 // AbstractAuthenticationToken (Authentication 의 추상클래스) : 권한/인증 여부 관리 로직 들어있음
 // -> 우리는 필요한 메서드 구현만 하면 됨
 public class JwtAuthenticationToken extends AbstractAuthenticationToken {

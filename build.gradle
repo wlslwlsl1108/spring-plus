@@ -47,10 +47,12 @@ dependencies {
     runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.5'
 
     // QueryDSL 의존성
-    implementation "com.querydsl:querydsl-jpa:5.0.0:jakarta"
-    annotationProcessor "com.querydsl:querydsl-apt:5.0.0:jakarta"
-    annotationProcessor "jakarta.annotation:jakarta.annotation-api"
-    annotationProcessor "jakarta.persistence:jakarta.persistence-api"
+    // 이 라이브러리가 더이상 유지보수x
+    // 우리나라만 많이 씀
+    implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
+    annotationProcessor 'com.querydsl:querydsl-apt:5.0.0:jakarta'
+    annotationProcessor 'jakarta.annotation:jakarta.annotation-api'
+    annotationProcessor 'jakarta.persistence:jakarta.persistence-api'
 
     // Spring Security 의존성
     implementation 'org.springframework.boot:spring-boot-starter-security'
@@ -60,8 +62,6 @@ dependencies {
 
     // 테스트 -> 이 의존성 없으면 WithSecurityContextFactory 오류
     testImplementation 'org.springframework.security:spring-security-test'
-
-
 }
 
 
