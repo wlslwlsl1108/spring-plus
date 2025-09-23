@@ -1,5 +1,7 @@
 package org.example.expert.domain.todo.controller;
 
+import org.example.expert.config.security.JwtAuthenticationFilter;
+import org.example.expert.config.security.JwtUtil;
 import org.example.expert.domain.common.dto.AuthUser;
 import org.example.expert.domain.common.exception.InvalidRequestException;
 import org.example.expert.domain.todo.dto.response.TodoResponse;
@@ -9,9 +11,11 @@ import org.example.expert.domain.user.entity.User;
 import org.example.expert.domain.user.enums.UserRole;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDateTime;
@@ -21,7 +25,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(TodoController.class)
+@WebMvcTest(controllers = TodoController.class)
+@AutoConfigureMockMvc(addFilters = false)
 class TodoControllerTest {
 
     @Autowired
@@ -30,12 +35,19 @@ class TodoControllerTest {
     @MockBean
     private TodoService todoService;
 
+    @MockBean
+    private JwtAuthenticationFilter jwtAuthenticationFilter;
+
+    @MockBean
+    private JwtUtil jwtUtil;
+
     @Test
+    //@WithMockUser
     void todo_단건_조회에_성공한다() throws Exception {
         // given
         long todoId = 1L;
         String title = "title";
-        AuthUser authUser = new AuthUser(1L, "email", UserRole.USER);
+        AuthUser authUser = new AuthUser(1L, "email", UserRole.ROLE_USER);
         User user = User.fromAuthUser(authUser);
         UserResponse userResponse = new UserResponse(user.getId(), user.getEmail());
         TodoResponse response = new TodoResponse(

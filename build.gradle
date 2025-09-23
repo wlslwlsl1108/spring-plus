@@ -57,13 +57,18 @@ dependencies {
     implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
     runtimeOnly   'io.jsonwebtoken:jjwt-impl:0.11.5'
     runtimeOnly   'io.jsonwebtoken:jjwt-jackson:0.11.5'
+
+    // 테스트 -> 이 의존성 없으면 WithSecurityContextFactory 오류
+    testImplementation 'org.springframework.security:spring-security-test'
+
+
 }
 
 
 // QueryDSL 코드 생성 경로 설정
 // [ Q 클래스 생성 + IDE 에서 소스로 인식 ]
 // 이게 없으면 Q 클래스 생성이 안됨 (오류)
-// -> 경로를 지정해주지 않으면 엉뚱한 위치에 생기거나, IDE에서 인식 불가
+// -> 경로를 지정해주지 않으면 엉뚱한 위치에 생기거나, IDE q에서 인식 불가
 // def querydslDir : Q 클래스가 생성될 디렉토리 경로 지정
 // 취소선? IDE가 $buildDir를 구식 방식으로 인식했기 때문
 // -> def querydslDir = layout.buildDirectory.dir("generated/querydsl").get().asFile
